@@ -96,13 +96,9 @@ async function userLoginController(req, res) {
             _id: user._id,
             username: user.username,
             email: user.email,
-
         }
     })
-
-
 }
-
 
 /**
  * @route POST /api/auth/logout
