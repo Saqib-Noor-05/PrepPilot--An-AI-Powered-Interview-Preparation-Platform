@@ -28,9 +28,14 @@ export const useAuth = () => {
 
   useEffect(() => {
     const getAndSetUser = async () => {
-      const data = await getme();
-      setUser(data.user);
-      setLoading(false);
+      try {
+        const data = await getme();
+        setUser(data.user);
+      } catch (err) {
+        console.log("Get-me  error: ", err);
+      } finally {
+        setLoading(false);
+      }
     };
     getAndSetUser();
   }, []);
@@ -55,7 +60,7 @@ export const useAuth = () => {
     } catch (err) {
       console.log("LoGout error: ", err);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 
