@@ -15,7 +15,7 @@ export const useAuth = () => {
     } catch (err) {
       console.log("Login error: ", err);
     } finally {
-      setLoading(true);
+      setLoading(false);
       // <Link to={"/"}></Link>;
     }
   };
@@ -23,7 +23,7 @@ export const useAuth = () => {
   /**
    * this useEffect solves the page reload problem
    * @param get-me works by logging through token (in cookies)
-   * useEffect runs only once as the dependency  array is empty []
+   * useEffect runs only once ,when the dependency  array is empty []
    */
 
   useEffect(() => {
@@ -70,9 +70,10 @@ export const useAuth = () => {
       const data = await getme();
       setUser(data.user);
     } catch (err) {
+      setUser(null);
       console.log("Get-me  error: ", err);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 

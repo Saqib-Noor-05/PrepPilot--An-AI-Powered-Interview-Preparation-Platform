@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "../style/interview.scss";
+import "../style/skeleton.scss";
+import InterviewSkeleton from "../component/InterviewSkeleton.jsx";
 import { useInterview } from "../hooks/useInterview.jsx";
 import { useParams } from "react-router";
 
@@ -133,17 +135,14 @@ const Interview = () => {
   const { report, getReportById, loading, generateResumePDF } = useInterview();
   const { interviewId } = useParams();
 
-  useEffect(() => {
-    if (interviewId) {
-      getReportById(interviewId);
-    }
-  }, [interviewId]);
+  // useEffect(() => {
+  //   if (interviewId) {
+  //     getReportById(interviewId);
+  //   }
+  // }, [interviewId]);
+
   if (loading || !report) {
-    return (
-      <main className="loading-screen">
-        <h1>Loading your interview plan...</h1>
-      </main>
-    );
+    return <InterviewSkeleton />;
   }
 
   const scoreColor =
@@ -254,7 +253,7 @@ const Interview = () => {
               <span className="match-score__value">{report.matchScore}</span>
               <span className="match-score__pct">%</span>
             </div>
-            <p className="match-score__sub">Strong match for this role</p>
+            {/* <p className="match-score__sub">Strong match for this role</p> */}
           </div>
 
           <div className="sidebar-divider" />

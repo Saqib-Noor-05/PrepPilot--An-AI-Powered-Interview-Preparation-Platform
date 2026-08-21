@@ -22,6 +22,7 @@ export const useInterview = () => {
     jobDescription,
     selfDescription,
     resumeFile,
+    onUploadProgress,
   }) => {
     setLoading(true);
     let response = null;
@@ -30,6 +31,7 @@ export const useInterview = () => {
         jobDescription,
         selfDescription,
         resumeFile,
+        onUploadProgress,
       });
       setReport(response.interviewReport);
     } catch (err) {
@@ -38,7 +40,7 @@ export const useInterview = () => {
       setLoading(false);
     }
 
-    return response.interviewReport;
+    return response?.interviewReport;
   };
 
   const getReportById = async (interviewId) => {
@@ -59,10 +61,11 @@ export const useInterview = () => {
     setLoading(true);
     let response = null;
     try {
-      const response = await getAllInterviewReports();
+      response = await getAllInterviewReports();
       setReports(response.interviewReports);
     } catch (err) {
       console.log(err);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -88,7 +91,6 @@ export const useInterview = () => {
     } finally {
       setLoading(false);
     }
-    // return
   };
 
   useEffect(() => {

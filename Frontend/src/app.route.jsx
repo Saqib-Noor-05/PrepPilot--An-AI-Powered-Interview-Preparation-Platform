@@ -15,16 +15,14 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: (
-      // <Protected>
-      <Login />
-      // </Protected>
-    ),
+    element: <Login />,
   },
+
   {
     path: "/register",
     element: <Register />,
   },
+
   {
     path: "/interview/:interviewId",
     element: (

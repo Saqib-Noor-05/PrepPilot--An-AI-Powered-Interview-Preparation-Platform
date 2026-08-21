@@ -1,48 +1,316 @@
-@use "../../styles/button.scss";
+// @use "../../styles/button.scss";
 
 
-main{
-    min-height: 100vh;
-    width:100%;
+// main{
+//     min-height: 100vh;
+//     width:100%;
 
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     font-family: cursive;
+
+//     .input-group{
+//         display: flex;
+//         flex-direction: column;
+//         gap:0.5rem;
+
+
+//         input{
+//             border: none;
+//             outline: none;
+//             padding-inline: 1rem;
+//             padding-block: .75rem;
+//             border-radius: 20rem
+//         }
+
+//     }
+//     a{
+//         text-decoration: none;
+//         color:#b10f0fb9
+//     }
+// };  
+
+// .form-container{
+//     color: rgb(236, 236, 236);
+//     min-width: 300px;
+//     min-height: 300px;
+//     display: flex;
+//     flex-direction: column;
+//     gap:0.5rem;
+
+//     form{
+//     display: flex;
+//     flex-direction: column;
+//     gap:0.75rem;
+//     }
+// };
+
+/* PrepPilot Auth & UI SCSS Stylesheet */
+
+// Color Variables
+$bg-dark: #0a0e14;
+$card-bg: rgba(17, 21, 28, 0.85);
+$input-bg: #161a23;
+$text-primary: #dfe2eb;
+$text-muted: #94a3b8;
+$accent-pink: #ff2d7a;
+$accent-purple: #8a2be2;
+$border-color: rgba(255, 255, 255, 0.08);
+$border-glow: rgba(255, 177, 193, 0.2);
+
+// Reset & Global setup
+main {
+  min-height: 100vh;
+  background-color: $bg-dark;
+  color: $text-primary;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+// Grid Background Pattern
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+// Glassmorphism Card Container
+.form-container {
+  background: $card-bg;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $border-color;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 35px -10px rgba(255, 45, 122, 0.15);
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: $text-muted;
+    text-align: center;
+    margin-top: 1.25rem;
+
+    a {
+      color: $accent-pink;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: lighten($accent-pink, 10%);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Form Elements
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: lighten($text-muted, 15%);
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    background-color: $input-bg;
+    border: 1px solid $border-color;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: #64748b;
+    }
+
+    &:focus {
+      border-color: rgba($accent-pink, 0.8);
+      box-shadow: 0 0 0 2px rgba($accent-pink, 0.2);
+    }
+  }
+}
+
+// Buttons
+.button {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &.primary-button {
+    background: linear-gradient(135deg, $accent-pink 0%, $accent-purple 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba($accent-pink, 0.3);
+
+    &:hover {
+      box-shadow: 0 6px 25px rgba($accent-pink, 0.5);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Hero Info Side Panel & Session Analysis Card
+.hero-content {
+  color: #ffffff;
+
+  h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+
+    .highlight-gradient {
+      background: linear-gradient(135deg, #ff75c3 0%, $accent-pink 50%, $accent-purple 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  .icon-box {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.75rem;
+    background: $input-bg;
+    border: 1px solid $border-color;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: cursive;
+    color: $accent-pink;
+    flex-shrink: 0;
+  }
 
-    .input-group{
-        display: flex;
-        flex-direction: column;
-        gap:0.5rem;
-
-
-        input{
-            border: none;
-            outline: none;
-            padding-inline: 1rem;
-            padding-block: .75rem;
-            border-radius: 20rem
-        }
-
+  .feature-text {
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f8fafc;
+      margin: 0;
     }
-    a{
-        text-decoration: none;
-        color:#b10f0fb9
+    p {
+      font-size: 0.85rem;
+      color: $text-muted;
+      margin-top: 0.25rem;
+      line-height: 1.5;
     }
-};  
+  }
+}
 
-.form-container{
-    color: rgb(236, 236, 236);
-    min-width: 300px;
-    min-height: 300px;
+.session-analysis-card {
+  background: rgba(17, 21, 28, 0.8);
+  border: 1px solid $border-color;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  backdrop-filter: blur(12px);
+
+  .card-header {
     display: flex;
-    flex-direction: column;
-    gap:0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    font-mono: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $text-muted;
+    font-weight: 600;
+  }
 
-    form{
-    display: flex;
-    flex-direction: column;
-    gap:0.75rem;
+  .waveform-bar {
+    width: 100%;
+    height: 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin: 0.75rem 0;
+
+    .progress {
+      height: 100%;
+      width: 87%;
+      background: linear-gradient(90deg, $accent-pink, $accent-purple);
+      border-radius: 9999px;
     }
-};
+  }
 
+  .badge-group {
+    display: flex;
+    gap: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+
+    .badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+
+      &.pink {
+        background: rgba($accent-pink, 0.15);
+        border: 1px solid rgba($accent-pink, 0.3);
+        color: #ffb1c1;
+      }
+
+      &.purple {
+        background: rgba($accent-purple, 0.15);
+        border: 1px solid rgba($accent-purple, 0.3);
+        color: #dcb8ff;
+      }
+    }
+  }
+}

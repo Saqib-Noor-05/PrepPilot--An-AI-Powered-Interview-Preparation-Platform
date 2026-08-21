@@ -6,24 +6,29 @@ const api = axios.create({
 })
 
 /**
- * 
- * @description Service function to generate interview report by sending job description, self-description and resume file to the backend API.
+ *  @description Service function to generate interview report by sending job description, self-description and resume file to the backend API.
  */
-export const generateInterviewReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+export const generateInterviewReport = async ({ jobDescription, selfDescription, resumeFile, onUploadProgress }) => {
     const formData = new FormData();
     formData.append("jobDescription", jobDescription)
     formData.append("selfDescription", selfDescription)
     formData.append("resume", resumeFile)
 
     const response = await api.post("/api/interview/", formData, {
-        headers: {
-            "Content-Type": "multipart/form-data"
-        }
-    })
+        onUploadProgress: (progressEvent) => {
+            if (!progressEvent.total) return;
+            const progress = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+            );
+            onUploadProgress?.(progress);
+        },
+
+    });
     return response.data
 }
+
 /**
- * @description Service function to get interview report by Interview
+ * @description Service function to get interview report by InterviewId
  *
  */
 export const getInterviewReportById = async (interviewId) => {
@@ -49,16 +54,9 @@ export const getAllInterviewReports = async () => {
 }
 
 export const getResumePDF = async (interviewId) => {
-    // try {
     const response = await api.post(`/api/interview/resume-pdf/${interviewId}/`, null, {
         responseType: "blob"
     })
     return response.data;
-
-    // }
-    // catch (err) {
-    //     console.log(err)
-    //     throw err
-    // }
 
 }

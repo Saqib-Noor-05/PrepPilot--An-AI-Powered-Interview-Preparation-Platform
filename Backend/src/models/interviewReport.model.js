@@ -35,112 +35,6 @@ const mongoose = require('mongoose')
  *             focus:String
  */
 
-// const technicalQuestionSchema = new mongoose.Schema({
-//     question: {
-//         type: String
-//     },
-//     intention: {
-//         type: String
-//     },
-//     answer: {
-//         type: String
-//     }
-// },
-//     { _id: false }
-// )
-
-// const behaviouralQuestionSchema = new mongoose.Schema({
-//     question: {
-//         type: String
-//     },
-//     intention: {
-//         type: String
-//     },
-//     answer: {
-//         type: String
-//     }
-// },
-//     { _id: false }
-// )
-
-// const skillGapSchema = new mongoose.Schema({
-//     skill: {
-//         type: String,
-//         required: [true, "SkillGap is required"]
-//     },
-//     severity: {
-//         type: String,
-//         enum: ["low", "medium", "high"]
-//     }
-// },
-//     {
-//         _id: false
-//     }
-// )
-
-
-
-// const prepPlanSchema = new mongoose.Schema({
-//     day: {
-//         type: Number
-//     },
-//     tasks: [{
-//         type: String
-//     }],
-
-//     focus: {
-//         type: String
-//     }
-// })
-
-// const interviewReportSchema = new mongoose.Schema({
-
-//     jobDescription: {
-//         type: String,
-//         required: [true, "Job description is required"],
-//         minlength: 10
-
-//     },
-//     resumeText: {
-//         type: String,
-//     },
-//     selfDescription: {
-//         type: String
-//     },
-//     matchScore: {
-//         type: Number,
-//         min: 0,
-//         max: 100
-//     },
-//     technicalQuestion: [technicalQuestionSchema],
-//     behaviouralQuestion: [behaviouralQuestionSchema],
-//     skillGaps: [skillGapSchema],
-//     prepPlan: [prepPlanSchema],
-//     user: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "users"
-//     }
-// }, {
-//     timestamps: true
-// })
-
-// const interviewReportModel = mongoose.model("interviewReportSchema", interviewReportSchema)
-
-// module.exports = interviewReportModel
-
-
-
-
-
-
-
-
-
-
-
-
-// const mongoose = require('mongoose');
-
 
 const technicalQuestionSchema = new mongoose.Schema({
     question: {
@@ -226,9 +120,10 @@ const interviewReportSchema = new mongoose.Schema({
     behavioralQuestions: [behavioralQuestionSchema],
     skillGaps: [skillGapSchema],
     preparationPlan: [preparationPlanSchema],
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "user"
     },
     title: {
         type: String,
@@ -237,8 +132,6 @@ const interviewReportSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
-
-
 
 const interviewReportModel = mongoose.model("InterviewReport", interviewReportSchema);
 module.exports = interviewReportModel;  

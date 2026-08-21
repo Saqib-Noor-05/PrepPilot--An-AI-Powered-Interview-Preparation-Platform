@@ -79,7 +79,7 @@ async function userLoginController(req, res) {
 
     const isValidpassword = await bcrypt.compare(password, user.password)
     if (!isValidpassword) {
-        res.status(400).json({
+        return res.status(400).json({
             message: "Invalid Password"
         })
     }
@@ -99,12 +99,12 @@ async function userLoginController(req, res) {
         }
     })
 }
-
 /**
  * @route POST /api/auth/logout
  * @description logout the user and blacklist the token
  * @access public 
  */
+
 async function userLogoutController(req, res) {
     const token = req.cookies.token || req.headers.authorization?.split(" ")[1]
     if (!token) {
@@ -115,13 +115,11 @@ async function userLogoutController(req, res) {
     await blacklistModel.create({
         token: token
     })
-
     res.clearCookie("token")
     res.status(200).json({
         message: "User logout Successfully"
     })
 }
-
 
 /**
  * 
@@ -131,7 +129,6 @@ async function userLogoutController(req, res) {
  */
 async function getMeController(req, res) {
     const user = await userModel.findById(req.user._id)
-
     res.status(200).json({
         message: "User Details are : ",
         user: {
@@ -139,14 +136,8 @@ async function getMeController(req, res) {
             username: user.username,
             email: user.email
         }
-
     })
-
-
 }
-
-
-
 module.exports = {
     registerUserController,
     userLoginController,

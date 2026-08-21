@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const blacklistModel = require('../models/token.blacklist.model')
 
 async function authUser(req, res, next) {
-    const token = req.cookies.token || req.headers.authoriation?.split(" ")[1]
+    const token = req.cookies.token || req.headers.authoriation?.split(" ")[1] //Contain 2 fields "Bearer (token)" [1]-> means we need the second array index,first one is Bearer so we need the token that comes in .split[1]
     if (!token) {
         return res.status(400).json({
             message: "Invalid token"
@@ -28,6 +28,4 @@ async function authUser(req, res, next) {
 
 }
 
-module.exports = {
-    authUser
-}
+module.exports = { authUser }

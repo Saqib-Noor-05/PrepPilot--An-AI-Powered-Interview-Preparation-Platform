@@ -1,10 +1,10 @@
 const pdfParse = require("pdf-parse");
-const {generateInterviewReport, generateResumePDF} = require("../services/ai.service")   //AI services included here..
+const { generateInterviewReport, generateResumePDF } = require("../services/ai.service")  //AI services included here..
 const interviewReportModel = require("../models/interviewReport.model")
 
 async function generateinterviewReportController(req, res) {
 
-    const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
+    const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText() //Uint8Array = Unsigned 8 bit integer
     const { selfDescription, jobDescription } = req.body
 
     const interviewReportByAi = await generateInterviewReport({
@@ -12,9 +12,8 @@ async function generateinterviewReportController(req, res) {
         selfDescription,
         jobDescription
     })
-
     const interviewReport = await interviewReportModel.create({
-        user: req.user.id,
+        user: req.user._id,
         resume: resumeContent.text,
         selfDescription,
         jobDescription,
@@ -29,11 +28,11 @@ async function generateinterviewReportController(req, res) {
 
 }
 
-async function generateinterviewReportByIdController(req, res) {
-    const { Id } = req.params;
+async function getInterviewReportByIdController(req, res) {
+    const { interviewId } = req.params;
     const interviewReport = await interviewReportModel.findOne({
-        _id: Id,
-        user: req.user.id
+        _id: interviewId,
+        user: req.user._id
     })
     if (!interviewReport) {
         return res.status(400).json({
@@ -44,21 +43,22 @@ async function generateinterviewReportByIdController(req, res) {
         message: "Reports fetched successfully",
         interviewReport
     })
-
-
 }
 
+
 async function getInterviewReportsByUserIdController(req, res) {
+    // const { user } = req.params;
     const interviewReports = await interviewReportModel.find({
-        user: req.user.id
+        user: req.user._id
     }).sort({ createdAt: -1 }).select("-resume -selfDescription" +
         " -jobDescription -preparationPlan" +
-        "-__v -technicalQuestions -behavioralQuestions -skillGaps")
+        " -__v -technicalQuestions -behavioralQuestions -skillGaps")
     return res.status(200).json({
         message: "Interview Reports Fetched Successfully",
         interviewReports
     })
 }
+
 
 async function generateResumePDFController(req, res) {
     const { interviewId } = req.params
@@ -83,11 +83,10 @@ async function generateResumePDFController(req, res) {
     res.send(pdfBuffer)
 }
 
-
 module.exports =
 {
     generateinterviewReportController,
     generateResumePDFController,
-    generateinterviewReportByIdController,
+    getInterviewReportByIdController,
     getInterviewReportsByUserIdController
 }

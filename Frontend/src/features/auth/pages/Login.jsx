@@ -1,4 +1,5 @@
 import "../style.scss";
+import Loader from "../../../components/ui/Loader/Loader";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
@@ -18,7 +19,7 @@ const Login = () => {
   if (loading) {
     return (
       <main>
-        <h1>Loading .....</h1>
+        <Loader />
       </main>
     );
   }

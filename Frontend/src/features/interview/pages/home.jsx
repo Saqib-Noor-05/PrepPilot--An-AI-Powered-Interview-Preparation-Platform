@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import "../style/style.scss";
+import "../style/skeleton.scss";
+import InterviewSkeleton from "../component/InterviewSkeleton.jsx";
 import { useInterview } from "../hooks/useInterview.jsx";
 import { useNavigate } from "react-router";
 
@@ -7,6 +9,7 @@ const Home = () => {
   const { loading, generateReport, reports } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
+  const [UploadProgress, setUploadProgress] = useState(0);
   const resumeInputRef = useRef();
 
   const navigate = useNavigate();
@@ -17,16 +20,16 @@ const Home = () => {
       resumeFile,
       selfDescription,
       jobDescription,
+      onUploadProgress: (progress) => {
+        console.log("UPLOAD:", progress);
+        setUploadProgress(progress);
+      },
     });
     navigate(`/interview/${data._id}`);
   };
 
   if (loading) {
-    return (
-      <main className="loading-screen">
-        <h1>Loading your interview plan...</h1>
-      </main>
-    );
+    return <InterviewSkeleton></InterviewSkeleton>;
   }
 
   return (
@@ -219,7 +222,9 @@ const Home = () => {
           </button>
         </div>
       </div>
+      {/* <h1> Missing Interview Reports</h1> */}
       {/* Recent Reports List */}
+      {console.log("the report length is", reports.length)}
       {reports.length > 0 && (
         <section className="recent-reports">
           <h2>My Recent Interview Plans</h2>

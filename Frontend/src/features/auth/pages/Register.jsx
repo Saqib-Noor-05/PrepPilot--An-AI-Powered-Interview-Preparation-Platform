@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import Loader from "../../../components/ui/Loader/Loader";
 import { useState } from "react";
 const Register = () => {
   const { loading, handleReg } = useAuth();
@@ -18,7 +19,7 @@ const Register = () => {
   if (loading) {
     return (
       <main>
-        <h1>Loading....</h1>
+        <Loader />
       </main>
     );
   }
