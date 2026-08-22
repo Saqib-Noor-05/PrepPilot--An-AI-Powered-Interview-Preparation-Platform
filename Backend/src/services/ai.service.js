@@ -3,8 +3,8 @@ const { z } = require('zod')
 const puppeteer = require('puppeteer');
 
 const client = new GoogleGenAI({
-    // apiKey:process.env.GEMINI_API_KEY
-    apiKey: "AQ.Ab8RN6ICI_VzgQsXz7M6dbv6BOzq-3JxuQRgoRbbf3d_CLxWxQ"
+    apiKey:process.env.GEMINI_API_KEY
+    
 });
 
 const interviewReportSchema = z.object({
