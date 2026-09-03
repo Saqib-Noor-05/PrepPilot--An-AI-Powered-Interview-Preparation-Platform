@@ -1,11 +1,18 @@
 const pdfParse = require("pdf-parse");
 const { generateInterviewReport, generateResumePDF } = require("../services/ai.service")  //AI services included here..
 const interviewReportModel = require("../models/interviewReport.model")
+const getURL = require('../services/testcherio')
 
 async function generateinterviewReportController(req, res) {
 
     const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText() //Uint8Array = Unsigned 8 bit integer
-    const { selfDescription, jobDescription } = req.body
+    const { jobDescription } = req.body
+    const { selfDescription } = req.body
+    const { jobDescriptionURL } = req.body
+    if (!jobDescription) {
+        jobDescription = jobDescriptionURL
+    }
+
 
     const interviewReportByAi = await generateInterviewReport({
         resume: resumeContent.text,

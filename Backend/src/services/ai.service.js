@@ -47,6 +47,7 @@ ${selfDescription}
 ### Job Description
 ${jobDescription}
 
+
 Analyze the candidate carefully and perform the following tasks:
 
 1. Calculate a match score between 0 and 100 based on how well the candidate matches the job description.
